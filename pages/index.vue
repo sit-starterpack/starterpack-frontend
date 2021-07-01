@@ -1,10 +1,21 @@
 <template>
-  <div class="container"></div>
+  <div class="flex flex-col">
+    <nav class="w-full h-20 border-b-4 border-white absolute">
+      <div class="ml-5 mt-6 font-bold">feedback-starter</div>
+    </nav>
+    <div class="container">
+      <verify-page />
+    </div>
+  </div>
 </template>
 
 <script>
-// const boat = 1;
-export default {};
+import VerifyPage from '~/pages/VerifyPage.vue';
+export default {
+  components: {
+    VerifyPage,
+  },
+};
 </script>
 
 <style>
@@ -13,6 +24,9 @@ export default {};
 @apply min-h-screen flex justify-center items-center text-center mx-auto;
 }
 */
+nav {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+}
 .container {
   margin: 0 auto;
   min-height: 100vh;
@@ -20,6 +34,7 @@ export default {};
   justify-content: center;
   align-items: center;
   text-align: center;
+  overflow: hidden;
 }
 
 .title {
