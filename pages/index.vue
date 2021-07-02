@@ -5,15 +5,29 @@
     </nav>
     <div class="container">
       <verify-page />
+      <feedback-page />
+      {{ user }}
     </div>
   </div>
 </template>
 
 <script>
 import VerifyPage from '~/pages/VerifyPage.vue';
+import FeedbackPage from '~/pages/FeedbackPage.vue';
 export default {
   components: {
     VerifyPage,
+    FeedbackPage,
+  },
+
+  data() {
+    return {
+      user: '',
+    };
+  },
+  async mounted() {
+    // this.user = this.getUser('api/user');
+    this.user = await this.$axios.$get('/api/user');
   },
 };
 </script>

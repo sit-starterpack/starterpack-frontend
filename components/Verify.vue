@@ -6,7 +6,12 @@
       id="input"
       class="border-4 border-black py-5 px-8 lg:py-8 lg:px-24 rounded-full"
     >
-      <input v-model="code" type="text" class="text-2xl outline-none" />
+      <input
+        v-model="code"
+        type="text"
+        class="text-2xl outline-none"
+        submit.prevent
+      />
     </div>
     <span class="mt-5 text-lg font-bold">
       ใส่รหัสนักศึกษา 3 ตัวท้ายเพื่อเข้าใช้งาน

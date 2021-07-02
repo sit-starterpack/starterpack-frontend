@@ -1,13 +1,16 @@
 <template>
-  <VerifyVue />
+  <div>
+    <nuxt-link to="/feedbackpage">link</nuxt-link>
+    <Verify />
+  </div>
 </template>
 
 <script>
-import VerifyVue from '~/components/Verify.vue';
+import Verify from '~/components/Verify.vue';
 
 export default {
   components: {
-    VerifyVue,
+    Verify,
   },
 };
 </script>

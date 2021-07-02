@@ -43,8 +43,24 @@ export default {
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
-
+  axios: {
+    baseURL: process.env.API_URL,
+    withCredentials: true,
+  },
+  auth: {
+    strategies: {
+      local: {
+        token: {
+          required: false,
+          type: false,
+        },
+        endpoints: {
+          login: { url: '/api/user/auth', method: 'post' },
+          user: { url: '/api/check/auth', method: 'get' },
+        },
+      },
+    },
+  },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
 };
