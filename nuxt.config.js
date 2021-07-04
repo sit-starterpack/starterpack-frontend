@@ -7,7 +7,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'starter-feedback-frontend',
+    title: 'Starter-Pack',
     htmlAttrs: {
       lang: 'en',
     },
@@ -50,13 +50,16 @@ export default {
   auth: {
     strategies: {
       local: {
+        user: {
+          property: 'user',
+        },
         token: {
-          required: false,
-          type: false,
+          property: 'token',
         },
         endpoints: {
           login: { url: '/api/user/auth', method: 'post' },
           user: { url: '/api/check/auth', method: 'get' },
+          logout: false,
         },
       },
     },
