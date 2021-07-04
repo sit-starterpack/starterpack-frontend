@@ -11,5 +11,6 @@ export default {
   components: {
     Feedback,
   },
+  middleware: 'auth',
 };
 </script>

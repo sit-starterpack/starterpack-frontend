@@ -5,19 +5,18 @@
     </nav>
     <div class="container">
       <verify-page />
-      <feedback-page />
-      {{ user }}
+      <!-- <feedback-page /> -->
     </div>
   </div>
 </template>
 
 <script>
 import VerifyPage from '~/pages/VerifyPage.vue';
-import FeedbackPage from '~/pages/FeedbackPage.vue';
+// import FeedbackPage from '~/pages/FeedbackPage.vue';
 export default {
   components: {
     VerifyPage,
-    FeedbackPage,
+    // FeedbackPage,
   },
 
   data() {

@@ -23,7 +23,7 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: ['~/plugins/api'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -40,12 +40,14 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/auth',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     baseURL: process.env.API_URL,
     withCredentials: true,
+    // proxyHeaders: false,
   },
   auth: {
     strategies: {
@@ -63,6 +65,9 @@ export default {
         },
       },
     },
+    // redirect: {
+    //   login: '/feedbackpage',
+    // },
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},

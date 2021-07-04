@@ -1,6 +1,7 @@
 <template>
   <div>
     <nuxt-link to="/feedbackpage">link</nuxt-link>
+
     <Verify />
   </div>
 </template>
