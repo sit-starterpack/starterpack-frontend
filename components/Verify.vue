@@ -30,7 +30,7 @@ export default {
       };
       try {
         await this.$auth.loginWith('local', { data: payloads });
-        // this.router.push('/feedbackpage');
+        this.$router.push('/feedbackpage');
       } catch (e) {
         console.log(e);
 
