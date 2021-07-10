@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nuxt-link to="/feedbackpage">link</nuxt-link>
+    <nuxt-link to="/admin">link</nuxt-link>
 
     <Verify />
   </div>
