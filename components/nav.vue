@@ -1,6 +1,16 @@
 <template>
   <div>
-    <nav class="w-full h-20 border-b-4 border-white flex justify-between">
+    <nav
+      class="
+        w-full
+        h-20
+        border-b-4 border-white
+        flex
+        justify-between
+        filter
+        drop-shadow-md
+      "
+    >
       <div class="ml-5 mt-6 font-bold">feedback-starter</div>
       <div
         v-if="$auth.loggedIn"

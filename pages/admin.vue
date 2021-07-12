@@ -1,8 +1,11 @@
 <template>
-  <div class="flex justify-around">
-    <Card name="Boat"></Card>
-    <Card name="Beng"></Card>
-    <Card name="Boon"></Card>
+  <div>
+    <h1 class="flex justify-center">Who are you?</h1>
+    <div class="flex justify-around mt-10">
+      <Card name="Boat"></Card>
+      <Card name="Beng"></Card>
+      <Card name="Boon"></Card>
+    </div>
   </div>
 </template>
 
@@ -19,7 +22,8 @@ export default {
   },
   async created() {
     const res = await this.callApi('get', '/api/user');
-    console.log(res.data.length);
+    this.totalUser = res.data.length;
+    // console.log(this.$auth.user);
   },
 };
 </script>
