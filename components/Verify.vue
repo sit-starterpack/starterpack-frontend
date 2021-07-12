@@ -32,8 +32,6 @@ export default {
         await this.$auth.loginWith('local', { data: payloads });
         this.$router.push('/feedbackpage');
       } catch (e) {
-        console.log(e);
-
         // this.router.push('/');
       }
     },

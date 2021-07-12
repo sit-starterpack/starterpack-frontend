@@ -1,3 +1,1 @@
-export const state = () => ({
-  myState: 'Hello',
-});
+export const state = () => ({});

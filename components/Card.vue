@@ -1,36 +1,32 @@
 <template>
-  <div
-    class="
-      bg-white
-      p-2
-      w-72
-      h-40
-      rounded-2xl
-      shadow-lg
-      flex
-      justify-center
-      gap-5
-      select-none
-      font-bold
-      text-2xl
-    "
-  >
-    <div>
-      <p>
-        {{ name }}
-      </p>
-      <p class="ml-5">
-        {{ total }}
-      </p>
-    </div>
-  </div>
+  <nuxt-link to="/admin">
+    <CardStyle>
+      <div class="py-5">
+        <p>
+          {{ name }}
+        </p>
+        <p class="ml-5">
+          {{ userNumber[index] }}
+        </p>
+      </div>
+    </CardStyle>
+  </nuxt-link>
 </template>
 
 <script>
 export default {
   props: {
-    name: { type: String, default: 'pond' },
-    total: { type: Number, default: 0 },
+    name: { type: String, default: 'admin' },
+    userNumber: { type: Object, default: null },
+    index: { type: Number, default: 0 },
+  },
+  created() {
+    this.decreaseToTalUser();
+  },
+  methods: {
+    decreaseToTalUser() {
+      this.$emit('decreaseToTalUser');
+    },
   },
 };
 </script>

@@ -14,7 +14,11 @@ export default {
   components: {
     Feedback,
   },
-  middleware: 'auth',
+  middleware({ store, redirect }) {
+    if (store.$auth.user.role === 'admin') {
+      redirect('/admin');
+    }
+  },
 };
 </script>
 <style>
