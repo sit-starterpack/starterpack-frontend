@@ -1,32 +1,31 @@
 <template>
-  <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">starter-feedback-frontend</h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
+  <div class="flex flex-col">
+    <div class="container">
+      <verify-page />
+      <!-- <feedback-page /> -->
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+import VerifyPage from '~/pages/VerifyPage.vue';
+// import FeedbackPage from '~/pages/FeedbackPage.vue';
+export default {
+  components: {
+    VerifyPage,
+    // FeedbackPage,
+  },
+
+  data() {
+    return {
+      user: '',
+    };
+  },
+  async mounted() {
+    // this.user = this.getUser('api/user');
+    this.user = await this.$axios.$get('/api/user');
+  },
+};
 </script>
 
 <style>
@@ -35,6 +34,7 @@ export default {}
 @apply min-h-screen flex justify-center items-center text-center mx-auto;
 }
 */
+
 .container {
   margin: 0 auto;
   min-height: 100vh;
@@ -42,6 +42,7 @@ export default {}
   justify-content: center;
   align-items: center;
   text-align: center;
+  overflow: hidden;
 }
 
 .title {

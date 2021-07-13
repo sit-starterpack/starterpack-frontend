@@ -7,7 +7,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'starter-feedback-frontend',
+    title: 'Starter-Pack',
     htmlAttrs: {
       lang: 'en',
     },
@@ -23,7 +23,7 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: ['~/plugins/api'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -40,11 +40,36 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/auth',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
-
+  axios: {
+    baseURL: process.env.API_URL,
+    withCredentials: true,
+    // proxyHeaders: false,
+  },
+  auth: {
+    strategies: {
+      local: {
+        user: {
+          property: 'user',
+        },
+        token: {
+          property: 'token',
+        },
+        endpoints: {
+          login: { url: '/api/user/auth', method: 'post' },
+          user: { url: '/api/check/auth', method: 'get' },
+          logout: false,
+        },
+      },
+    },
+    redirect: {
+      login: '/',
+      logout: '/',
+    },
+  },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
-}
+};

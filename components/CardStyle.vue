@@ -1,0 +1,19 @@
+<template>
+  <div
+    class="
+      bg-white
+      p-2
+      rounded-2xl
+      shadow-lg
+      flex
+      justify-center
+      gap-5
+      select-none
+      font-bold
+      text-2xl
+      border
+    "
+  >
+    <slot></slot>
+  </div>
+</template>
