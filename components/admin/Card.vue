@@ -1,12 +1,12 @@
 <template>
-  <nuxt-link to="/admin">
+  <nuxt-link :to="linkPath">
     <CardStyle>
       <div class="py-5">
         <p>
           {{ name }}
         </p>
         <p class="ml-5">
-          {{ userNumber[index] }}
+          {{ adminOption[index].amountUser }}
         </p>
       </div>
     </CardStyle>
@@ -17,11 +17,20 @@
 export default {
   props: {
     name: { type: String, default: 'admin' },
-    userNumber: { type: Object, default: null },
+    adminOption: { type: Object, default: null },
     index: { type: Number, default: 0 },
+  },
+  data() {
+    return {
+      linkPath: '',
+    };
   },
   created() {
     this.decreaseToTalUser();
+    const name = this.name;
+    const start = this.adminOption[this.index].start;
+    const end = this.adminOption[this.index].end;
+    this.linkPath = `/admin/${name}?start=${start}&end=${end}`;
   },
   methods: {
     decreaseToTalUser() {
