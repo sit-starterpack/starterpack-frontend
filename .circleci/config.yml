@@ -48,7 +48,7 @@ commands:
             
       - run:
           name: "check firebase"
-          command: ls -la ./node_modules/.bin/ | grep "firebase"
+          command: ls -la ./node_modules/.bin/ 
       - run:
           name: Build for current environment.
           command: npm run build 
