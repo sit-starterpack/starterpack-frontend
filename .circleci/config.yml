@@ -1,43 +1,22 @@
 version: 2.1
 
 executors:
-  node14:
+  node10:
     docker:
-      - image: cimg/node:14.17.0
+      - image: circleci/node:10
     working_directory: ~/project
 
 commands:
-  env-prod:
-    description: "test .env variable"
-    steps:
-      - checkout
-      - run:
-          name: "What a number in this .env"
-          command: touch .env ; echo "API_URL_PROD=$API_URL" >> .env
-      - run:
-          name: "Check file .env"
-          command: ls -la ; cat .env
-  env-dev:
-    description: "test .env variable"
-    steps:
-      - checkout
-      - run:
-          name: "What a number in this .env"
-          command: touch .env ; echo "API_URL_DEV=$API_URL" >> .env
-      - run:
-          name: "Check file .env"
-          command: cat .env
   build:
     description: "Builds the project"
     steps:
       - checkout
       - restore_cache:
           keys:
+            # Find a yarn.lock cache
             - v1-npm-deps-{{ checksum "yarn.lock" }}
+            # Fallback cache to be used
             - v1-npm-deps-
-      - run:
-          name: "Check file .env again"
-          command: ls -la ; cat .env
       - run:
           name: Install Dependencies
           command: yarn install
@@ -45,16 +24,10 @@ commands:
           key: v1-npm-deps-{{ checksum "yarn.lock" }}
           paths:
             - ./node_modules
-      
-      - run:
-          name: "install firebase"
-          command: yarn global add firebase-tools     
-      - run:
-          name: "check firebase"
-          command: ls -la ./node_modules/.bin/ 
       - run:
           name: Build for current environment.
-          command: yarn build ; yarn generate
+          command: yarn build
+          build:
   deploy:
     description: "Deploy project to the designated environment"
     parameters:
@@ -62,32 +35,29 @@ commands:
         type: string
         default: "dev"
     steps:
-      - checkout
       - run:
           name: Firebase Deploy
-          command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN" --non-interactive --only hosting:<< parameters.env >> 
+          command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN" --non-interactive --only hosting:<< parameters.env >>
 
 jobs:
   build-deploy-dev:
-    executor: node14
+    executor: node10
     steps:
-      - env-dev
       - build
       - deploy:
           env: "dev"
   build-deploy-production:
-    executor: node14
+    executor: node10
     steps:
-      - env-prod
       - build
       - deploy:
           env: "production"
 
 workflows:
   version: 2
-  dev:
+  test:
     jobs:
-      - build-deploy-dev:
+      - build-deploy-test:
           filters:
             branches:
               only: dev
