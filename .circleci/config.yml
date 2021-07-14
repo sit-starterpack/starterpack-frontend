@@ -23,7 +23,7 @@ commands:
       - checkout
       - run:
           name: "What a number in this .env"
-          command: touch .env ; echo "API_URL_DEV=$API_URL" >> .env ; echo "FIREBASE_TOKEN=$FIREBASE_TOKEN >> .env"
+          command: touch .env ; echo "API_URL_DEV=$API_URL" >> .env
       - run:
           name: "Check file .env"
           command: cat .env
@@ -45,7 +45,10 @@ commands:
           key: v1-npm-deps-{{ checksum "yarn.lock" }}
           paths:
             - ./node_modules
-            
+      
+      - run:
+          name: "install firebase"
+          command: yarn global add firebase-tools     
       - run:
           name: "check firebase"
           command: ls -la ./node_modules/.bin/ 
