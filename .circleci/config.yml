@@ -1,0 +1,15 @@
+version: 2.1
+
+executors:
+  node14:
+    docker:
+      - image: circleci/node:14.17.0
+    working_directory: ~/project
+
+command:
+  test:
+    steps:
+      - checkout
+      - run:
+        name: "test ci"
+        command: echo "Hello i kuay tee"
