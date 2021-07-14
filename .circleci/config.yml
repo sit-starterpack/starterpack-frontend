@@ -25,8 +25,6 @@ commands:
           name: "What a number in this .env"
           command: touch .env ; echo "API_URL_DEV=$API_URL" >> .env
       - run:
-          command: echo "REACT_APP_AWS_BUCKET_NAME=$AWS_BUCKET_NAME" >> .env
-      - run:
           name: "Check file .env"
           command: cat .env
   build:
@@ -99,23 +97,3 @@ workflows:
           filters:
             branches:
               only: master
-# version: 2.1
-
-# # Define the jobs we want to run for this project
-# jobs:
-#   test:
-#     docker:
-#       - image: 'cimg/node:14.17.0'
-#     steps:
-#       - checkout
-#       - run: echo "this is the test job"
-
-# # Orchestrate our job run sequence
-# workflows:
-#   version: 2
-#   test-dev:
-#     jobs:
-#       - test:
-#           filters:
-#             branches:
-#               only: dev
