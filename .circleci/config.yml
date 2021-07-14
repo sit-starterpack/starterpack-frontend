@@ -1,87 +1,19 @@
 version: 2.1
 
-general:
-  branches:
-    only:
-      - develop
-
-executors:
-  node10:
+# Define the jobs we want to run for this project
+jobs:
+  test:
     docker:
-      - image: circleci/node:10
-    working_directory: ~/project
+      - image: 'cimg/node:14.17.0'
+    steps:
+      - checkout
+      - run: echo "this is the test job"
 
-commands:
-    test-dev:
-      description: "Test dev"
-      steps:
-        - checkout
-        - run: echo "Hello"
-
-#   build:
-#     description: "Builds the project"
-#     steps:
-#       - checkout
-#       - restore_cache:
-#           keys:
-#             - v1-npm-deps-{{ checksum "package.json" }}
-#             - v1-npm-deps-
-#       - run:
-#           name: Install Dependencies
-#           command: npm install
-#       - save_cache:
-#           key: v1-npm-deps-{{ checksum "package.json" }}
-#           paths:
-#             - ./node_modules
-#       - run:
-#           name: Build for current environment.
-#           command: npm run build
-#   test:
-#     description: "Test project"
-#     steps:
-#       - checkout
-#       - run: npm run test
-#   deploy:
-#     description: "Deploy project to the designated environment"
-#     parameters:
-#       env:
-#         type: string
-#         default: "test"
-#     steps:
-#       - checkout
-#       - run:
-#           name: Firebase Deploy
-#           command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN" --non-interactive --only hosting:<< parameters.env >>
-
-# jobs:
-#   build-deploy-test:
-#     executor: node10
-#     steps:
-#       - build
-#       - test
-#       - deploy:
-#           env: "test"
-#   build-deploy-production:
-#     executor: node10
-#     steps:
-#       - build
-#       - test
-#       - deploy:
-#           env: "production"
-
-# workflows:
-#   version: 2
-#   test:
-#     jobs:
-#       - build-deploy-test:
-#           filters:
-#             branches:
-#               only: dev
-
-#   production:
-#     jobs:
-#       - build-deploy-production:
-#           filters:
-#             branches:
-#               only: main
-      
+# Orchestrate our job run sequence
+workflows:
+  build_and_test:
+    jobs:
+      - test
+      filters:
+            branches:
+              only: dev
