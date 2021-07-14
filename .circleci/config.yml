@@ -33,7 +33,7 @@ commands:
       - checkout
       - restore_cache:
           keys:
-            - v1-npm-deps-{{ checksum "package.json" }}
+            - v1-npm-deps-{{ checksum "yarn.lock" }}
             - v1-npm-deps-
       - run:
           name: "Check file .env again"
@@ -42,7 +42,7 @@ commands:
           name: Install Dependencies
           command: yarn install
       - save_cache:
-          key: v1-npm-deps-{{ checksum "package.json" }}
+          key: v1-npm-deps-{{ checksum "yarn.lock" }}
           paths:
             - ./node_modules
             
@@ -51,7 +51,7 @@ commands:
           command: ls -la ./node_modules/.bin/ 
       - run:
           name: Build for current environment.
-          command: yarn build 
+          command: yarn build ; yarn generate
   deploy:
     description: "Deploy project to the designated environment"
     parameters:
