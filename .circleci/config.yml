@@ -70,7 +70,7 @@ jobs:
       - env-dev
       - build
       - deploy:
-          env: "production"
+          env: "dev"
   build-deploy-production:
     executor: node14
     steps:
