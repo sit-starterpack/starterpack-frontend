@@ -1,12 +1,32 @@
 version: 2.1
 
 executors:
-  node10:
+  node14:
     docker:
-      - image: circleci/node:10
+      - image: cimg/node:14.17.0
     working_directory: ~/project
 
 commands:
+  env-prod:
+    description: "test .env variable"
+    steps:
+      - checkout
+      - run:
+          name: "What a number in this .env"
+          command: touch .env ; echo "API_URL_PROD=$API_URL" >> .env
+      - run:
+          name: "Check file .env"
+          command: ls -la ; cat .env
+  env-dev:
+    description: "test .env variable"
+    steps:
+      - checkout
+      - run:
+          name: "What a number in this .env"
+          command: touch .env ; echo "API_URL_DEV=$API_URL" >> .env ;
+      - run:
+          name: "Check file .env"
+          command: cat .env
   build:
     description: "Builds the project"
     steps:
@@ -35,29 +55,32 @@ commands:
         type: string
         default: "dev"
     steps:
+      - checkout
       - run:
           name: Firebase Deploy
-          command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN" --non-interactive --only hosting:<< parameters.env >>
+          command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN" --non-interactive --only hosting:<< parameters.env >> 
 
 jobs:
   build-deploy-dev:
-    executor: node10
+    executor: node14
     steps:
+      - env-dev
       - build
       - deploy:
           env: "dev"
   build-deploy-production:
-    executor: node10
+    executor: node14
     steps:
+      - env-prod
       - build
       - deploy:
           env: "production"
 
 workflows:
   version: 2
-  test:
+  dev:
     jobs:
-      - build-deploy-test:
+      - build-deploy-dev:
           filters:
             branches:
               only: dev
