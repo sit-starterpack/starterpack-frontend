@@ -23,7 +23,7 @@ commands:
       - checkout
       - run:
           name: "What a number in this .env"
-          command: touch .env ; echo "API_URL_DEV=$API_URL" >> .env
+          command: touch .env ; echo "API_URL_DEV=$API_URL" >> .env ; echo "FIREBASE_TOKEN=$FIREBASE_TOKEN >> .env"
       - run:
           name: "Check file .env"
           command: cat .env
