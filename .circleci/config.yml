@@ -40,7 +40,7 @@ commands:
           command: ls -la ; cat .env
       - run:
           name: Install Dependencies
-          command: npm install
+          command: yarn install
       - save_cache:
           key: v1-npm-deps-{{ checksum "package.json" }}
           paths:
@@ -51,11 +51,7 @@ commands:
           command: ls -la ./node_modules/.bin/ 
       - run:
           name: Build for current environment.
-          command: npm run build 
-  test:
-    description: "Test project"
-    steps:
-      - run: npm run test
+          command: yarn build 
   deploy:
     description: "Deploy project to the designated environment"
     parameters:
@@ -74,7 +70,6 @@ jobs:
     steps:
       - env-dev
       - build
-      - test
       - deploy:
           env: "dev"
   build-deploy-production:
@@ -82,7 +77,6 @@ jobs:
     steps:
       - env-prod
       - build
-      - test
       - deploy:
           env: "production"
 
