@@ -45,6 +45,9 @@ commands:
           paths:
             - ./node_modules
       - run:
+          name: Firebase install
+          command: yarn add firebase-tools
+      - run:
           name: Build for current environment.
           command: yarn build
           build:
