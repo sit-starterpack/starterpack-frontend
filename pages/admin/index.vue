@@ -36,15 +36,15 @@
           mt-5
         "
       >
-        <Card
+        <AdminCard
           v-for="(admin, index) in admins"
           :key="admin._id"
           :name="admin.nickname"
           class="my-3 w-full md:w-1/4"
-          :user-number="getUserNumber"
+          :admin-option="getadminOption"
           :index="index"
           @decreaseToTalUser="decreaseTempTotalUser(index)"
-        ></Card>
+        ></AdminCard>
       </div>
     </div>
   </div>
@@ -58,14 +58,14 @@ export default {
       totalUser: 0,
       admins: null,
       tempTotalUser: 0,
-      userNumber: {},
+      adminOption: {},
       isShowEdit: false,
       status: 'nothing',
     };
   },
   computed: {
-    getUserNumber() {
-      return this.userNumber;
+    getadminOption() {
+      return this.adminOption;
     },
   },
   async created() {
@@ -78,10 +78,17 @@ export default {
   methods: {
     decreaseTempTotalUser(index) {
       const decreaseEach = Math.ceil(this.totalUser / this.admins.length);
-      this.userNumber[index] =
+      const amountUser =
         this.tempTotalUser - decreaseEach >= 0
           ? decreaseEach
           : this.tempTotalUser;
+      const start = index === 0 ? 1 : this.adminOption[index - 1].end + 1;
+      const end = start + (decreaseEach - 1);
+      this.adminOption[index] = {
+        amountUser,
+        start,
+        end,
+      };
       this.tempTotalUser -= decreaseEach;
     },
     async addUser(payload) {
