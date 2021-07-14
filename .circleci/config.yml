@@ -1,20 +1,121 @@
 version: 2.1
 
-# Define the jobs we want to run for this project
-jobs:
-  test:
+executors:
+  node14:
     docker:
-      - image: 'cimg/node:14.17.0'
+      - image: cimg/node:14.17.0
+    working_directory: ~/project
+
+commands:
+  env-prod:
+    description: "test .env variable"
     steps:
       - checkout
-      - run: echo "this is the test job"
+      - run:
+          name: "What a number in this .env"
+          command: touch .env ; echo "API_URL_PROD=$API_URL" >> .env
+      - run:
+          name: "Check file .env"
+          command: ls -la ; cat .env
+  env-dev:
+    description: "test .env variable"
+    steps:
+      - checkout
+      - run:
+          name: "What a number in this .env"
+          command: touch .env ; echo "API_URL_DEV=$API_URL" >> .env
+      - run:
+          command: echo "REACT_APP_AWS_BUCKET_NAME=$AWS_BUCKET_NAME" >> .env
+      - run:
+          name: "Check file .env"
+          command: cat .env
+  build:
+    description: "Builds the project"
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-npm-deps-{{ checksum "package.json" }}
+            - v1-npm-deps-
+      - run:
+          name: "Check file .env again"
+          command: ls -la ; cat .env
+      - run:
+          name: Install Dependencies
+          command: npm install
+      - save_cache:
+          key: v1-npm-deps-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+            
+      - run:
+          name: Build for current environment.
+          command: npm run build 
+  test:
+    description: "Test project"
+    steps:
+      - run: npm run test
+  deploy:
+    description: "Deploy project to the designated environment"
+    parameters:
+      env:
+        type: string
+        default: "dev"
+    steps:
+      - checkout
+      - run:
+          name: Firebase Deploy
+          command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN" --non-interactive --only hosting:<< parameters.env >> 
 
-# Orchestrate our job run sequence
+jobs:
+  build-deploy-dev:
+    executor: node14
+    steps:
+      - env-dev
+      - build
+      - test
+      - deploy:
+          env: "dev"
+  build-deploy-production:
+    executor: node14
+    steps:
+      - env-prod
+      - build
+      - test
+      - deploy:
+          env: "production"
+
 workflows:
   version: 2
-  test-dev:
+  dev:
     jobs:
-      - test:
+      - build-deploy-dev:
           filters:
             branches:
               only: dev
+  production:
+    jobs:
+      - build-deploy-production:
+          filters:
+            branches:
+              only: master
+# version: 2.1
+
+# # Define the jobs we want to run for this project
+# jobs:
+#   test:
+#     docker:
+#       - image: 'cimg/node:14.17.0'
+#     steps:
+#       - checkout
+#       - run: echo "this is the test job"
+
+# # Orchestrate our job run sequence
+# workflows:
+#   version: 2
+#   test-dev:
+#     jobs:
+#       - test:
+#           filters:
+#             branches:
+#               only: dev

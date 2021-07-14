@@ -1,5 +1,17 @@
 {
   "projects": {
-    "default": "starter-pack-ee050"
+    "default": "starterpack-feedback"
+  },
+  "targets": {
+    "starterpack-feedback": {
+      "hosting": {
+        "dev": [
+          "startpack-feedback-dev"
+        ],
+        "production": [
+          "startpack-feedback"
+        ]
+      }
+    }
   }
 }
