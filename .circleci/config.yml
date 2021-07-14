@@ -56,7 +56,7 @@ commands:
     parameters:
       env:
         type: string
-        default: "dev"
+        default: "production"
     steps:
       - checkout
       - run:
@@ -70,7 +70,7 @@ jobs:
       - env-dev
       - build
       - deploy:
-          env: "dev"
+          env: "production"
   build-deploy-production:
     executor: node14
     steps:
