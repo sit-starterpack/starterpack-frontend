@@ -7,20 +7,21 @@
       </div>
       <div class="flex w-1/2 justify-evenly">
         <AdminDay
-          :is-has-feedback="isHasFeedback(1)"
+          :day="1"
+          :is-has-feedback="feedbacks[0] ? true : false"
           :selected="selectedDay"
           @selectday="selectDay"
         ></AdminDay>
 
         <AdminDay
           :selected="selectedDay"
-          :is-has-feedback="isHasFeedback(2)"
+          :is-has-feedback="feedbacks[1] ? true : false"
           :day="2"
           @selectday="selectDay"
         ></AdminDay>
 
         <AdminDay
-          :is-has-feedback="isHasFeedback(3)"
+          :is-has-feedback="feedbacks[2] ? true : false"
           :selected="selectedDay"
           :day="3"
           @selectday="selectDay"
@@ -35,7 +36,7 @@
             id="feedback"
             v-model="feedback"
             name="feedback"
-            class="w-full outline-none h-20 p-2"
+            class="w-full outline-none h-32 p-2"
             placeholder="Your feedback"
           ></textarea>
           <span v-if="isFeedbackError" class="text-red-500"
@@ -54,11 +55,13 @@
 </template>
 
 <script>
+import marked from 'marked';
 export default {
   props: {
     name: { type: String, default: 'Student' },
     nickname: { type: String, default: 'Nickname' },
     feedbacks: { type: Array, default: null },
+    userId: { type: String, default: '' },
   },
   data() {
     return {
@@ -73,12 +76,13 @@ export default {
   },
   methods: {
     sendFeedback() {
-      if (this.feedback) {
+      if (this.feedback && this.userId) {
         this.isFeedbackError = false;
         const payload = {
-          comment: this.feedback,
+          comment: marked(this.feedback),
           day: this.selectedDay,
           commentBy: this.$auth.user.nickname,
+          userId: this.userId,
         };
         this.$emit('sendfeedback', payload);
       } else {
@@ -89,19 +93,12 @@ export default {
       this.selectedDay = day;
       this.setFeedback();
     },
-    isHasFeedback(day) {
-      if (this.feedbacks[day - 1]) {
-        this.isEdit = true;
-        return true;
-      } else {
-        this.isEdit = false;
-        return false;
-      }
-    },
     setFeedback() {
-      const feedback = this.feedbacks[this.selectedDay];
+      const feedback = this.feedbacks[this.selectedDay - 1];
       if (feedback) {
         this.feedback = feedback.feedbackId.comment;
+      } else {
+        this.feedback = '';
       }
     },
   },
