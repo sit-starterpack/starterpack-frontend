@@ -41,7 +41,11 @@ export default {
   methods: {
     selectDay() {
       this.isActive = true;
-      this.$emit('selectday', this.day);
+      const payload = {
+        day: this.day,
+        isEdit: this.isHasFeedback,
+      };
+      this.$emit('selectday', payload);
     },
   },
 };
