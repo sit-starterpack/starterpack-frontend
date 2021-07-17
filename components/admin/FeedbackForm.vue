@@ -31,7 +31,7 @@
     <div class="mt-2">
       <div class="flex flex-col">
         <span class="text-md font-bold mb-1">Day: {{ selectedDay }}</span>
-        <form @submit.prevent="">
+        <form @submit.prevent="sendFeedback">
           <textarea
             id="feedback"
             v-model="feedback"
@@ -45,7 +45,11 @@
             >Your feedback is Empty</span
           >
           <div class="flex w-full justify-end">
-            <button v-if="!isEdit" class="p-2 px-4 mt-3 bg-green-400">
+            <button
+              v-if="!isEdit"
+              type="submit"
+              class="p-2 px-4 mt-3 bg-green-400"
+            >
               Send
             </button>
           </div>
@@ -123,7 +127,7 @@ export default {
           userId: this.userId,
         };
         this.$emit('sendfeedback', payload);
-        this.nextDay();
+        this.isEdit = true;
       } else {
         this.isFeedbackError = true;
       }
@@ -143,14 +147,6 @@ export default {
     },
     editData() {
       this.isEditMode = true;
-    },
-    nextDay() {
-      const nextDay = this.selectedDay + 1;
-      if (nextDay > 3) {
-        this.selectedDay = 1;
-      } else {
-        this.selectedDay = nextDay;
-      }
     },
     updateFeedback() {
       if (!this.feedback) this.isFeedbackError = true;
