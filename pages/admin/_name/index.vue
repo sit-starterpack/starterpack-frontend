@@ -10,8 +10,7 @@
         <AdminFeedbackForm
           v-for="user in userInResponsibilty"
           :key="user._id"
-          :name="user.name"
-          :nickname="user.nickname"
+          :std-id="user.std_id"
           :feedbacks="user.feedbacks"
           :user-id="user._id"
           @sendfeedback="postFeedbackToServer"

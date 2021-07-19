@@ -11,9 +11,9 @@
 <script>
 export default {
   props: {
-    day: { type: Number, default: 1 },
+    day: { type: Number, default: 2 },
     isHasFeedback: { type: Boolean, default: false },
-    selected: { type: Number, default: 1 },
+    selected: { type: Number, default: 2 },
   },
   data() {
     return {
@@ -36,7 +36,7 @@ export default {
     },
   },
   mounted() {
-    if (this.day === 1) this.isActive = true;
+    if (this.day === 2) this.isActive = true;
   },
   methods: {
     selectDay() {
