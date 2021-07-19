@@ -1,6 +1,6 @@
 <template>
   <div v-if="!isLoading" class="p-5 flex justify-center">
-    <div class="container md:w-1/2 lg:px-10 flex flex-col">
+    <div class="md:w-1/2 lg:px-10 flex flex-col">
       <div class="flex flex-col w-full items-center">
         <h1 class="text-2xl font-bold">Admin</h1>
         <h2 class="text-xl font-semibold my-3">{{ name }}</h2>
