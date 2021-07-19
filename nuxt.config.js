@@ -72,6 +72,7 @@ export default {
     redirect: {
       login: '/',
       logout: '/',
+      home: '/feedback',
     },
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
