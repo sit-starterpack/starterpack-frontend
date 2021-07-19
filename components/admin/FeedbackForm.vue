@@ -116,6 +116,7 @@ export default {
     },
   },
   created() {
+    this.setCurrentFeedback();
     this.setFeedbackField();
     if (this.currentFeedback) this.isEdit = true;
   },
