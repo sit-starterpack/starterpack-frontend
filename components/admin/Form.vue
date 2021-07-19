@@ -4,21 +4,28 @@
     @submit.prevent="addUser"
   >
     <label for="name">Name:</label>
-    <input id="name" v-model="name" type="text" />
+    <input id="name" v-model="name" type="text" placeholder="Optional" />
     <span v-if="errors.name" class="text-red-500">Name is Empty</span>
     <label for="nickname">NickName:</label>
-    <input id="nickname" v-model="nickname" type="text" />
+    <input
+      id="nickname"
+      v-model="nickname"
+      type="text"
+      placeholder="Optional"
+    />
     <span v-if="errors.nickname" class="text-red-500">NickName is Empty</span>
     <label for="std_id">Student ID:</label>
     <input id="std_id" v-model="std_id" type="text" />
     <span v-if="errors.std_id" class="text-red-500">Student Id is Empty</span>
     <label for="role">Role:</label>
-    <select id="role" v-model="role" name="role">
+    <select id="role" v-model="role" name="role" class="border p-1">
       <option value="user" selected>user</option>
       <option value="admin">admin</option>
     </select>
     <br />
-    <input type="submit" class="p-3 cursor-pointer" />
+    <button type="submit" class="p-3 cursor-pointer bg-green-400">
+      Create User
+    </button>
   </form>
 </template>
 
@@ -31,8 +38,6 @@ export default {
       std_id: '',
       role: 'user',
       errors: {
-        name: false,
-        nickname: false,
         std_id: false,
       },
     };
@@ -58,10 +63,6 @@ export default {
       }
     },
     validate() {
-      if (this.name) this.errors.name = false;
-      else this.errors.name = true;
-      if (this.nickname) this.errors.nickname = false;
-      else this.errors.nickname = true;
       if (this.std_id) this.errors.std_id = false;
       else this.errors.std_id = true;
     },

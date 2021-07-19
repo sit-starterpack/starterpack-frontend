@@ -2,28 +2,28 @@
   <div class="flex flex-col bg-gray-300 my-2 p-2 px-4">
     <div class="w-full flex justify-between items-center py-2">
       <div class="flex flex-col">
-        <span class="text-md font-bold">{{ name }}</span>
-        <span class="text-sm font-medium">({{ nickname }})</span>
+        <span class="text-md font-bold">Student ID:</span>
+        <span class="text-sm font-semibold">{{ studentId }}</span>
       </div>
       <div class="flex w-1/2 justify-evenly">
         <AdminDay
-          :day="1"
-          :is-has-feedback="feedbacks[0] ? true : false"
-          :selected="selectedDay"
-          @selectday="selectDay"
-        ></AdminDay>
-
-        <AdminDay
-          :selected="selectedDay"
-          :is-has-feedback="feedbacks[1] ? true : false"
           :day="2"
+          :is-has-feedback="findFeedbackOn(2) ? true : false"
+          :selected="selectedDay"
           @selectday="selectDay"
         ></AdminDay>
 
         <AdminDay
-          :is-has-feedback="feedbacks[2] ? true : false"
           :selected="selectedDay"
+          :is-has-feedback="findFeedbackOn(3) ? true : false"
           :day="3"
+          @selectday="selectDay"
+        ></AdminDay>
+
+        <AdminDay
+          :is-has-feedback="findFeedbackOn(4) ? true : false"
+          :selected="selectedDay"
+          :day="4"
           @selectday="selectDay"
         ></AdminDay>
       </div>
@@ -82,8 +82,7 @@
 import marked from 'marked';
 export default {
   props: {
-    name: { type: String, default: 'Student' },
-    nickname: { type: String, default: 'Nickname' },
+    stdId: { type: String, default: '64130500000' },
     feedbacks: { type: Array, default: null },
     userId: { type: String, default: '' },
   },
@@ -91,9 +90,10 @@ export default {
     return {
       feedback: '',
       isFeedbackError: false,
-      selectedDay: 1,
+      selectedDay: 2,
       isEdit: false,
       isEditMode: false,
+      currentFeedback: null,
     };
   },
   computed: {
@@ -111,10 +111,13 @@ export default {
       }
       return false;
     },
+    studentId() {
+      return '64130500' + this.stdId;
+    },
   },
   created() {
-    this.setFeedback();
-    if (this.feedbacks[0]) this.isEdit = true;
+    this.setFeedbackField();
+    if (this.currentFeedback) this.isEdit = true;
   },
   methods: {
     sendFeedback() {
@@ -135,10 +138,11 @@ export default {
     selectDay({ day, isEdit }) {
       this.selectedDay = day;
       this.isEdit = isEdit;
-      this.setFeedback();
+      this.setCurrentFeedback();
+      this.setFeedbackField();
     },
-    setFeedback() {
-      const feedback = this.feedbacks[this.selectedDay - 1];
+    setFeedbackField() {
+      const feedback = this.currentFeedback;
       if (feedback) {
         this.feedback = feedback.feedbackId.comment;
       } else {
@@ -151,7 +155,7 @@ export default {
     updateFeedback() {
       if (!this.feedback) this.isFeedbackError = true;
       else {
-        const feedbackId = this.feedbacks[this.selectedDay - 1].feedbackId._id;
+        const feedbackId = this.currentFeedback.feedbackId._id;
         const payload = {
           comment: this.feedback,
           day: this.selectedDay,
@@ -162,6 +166,12 @@ export default {
         this.$emit('updatefeedback', payload);
         this.isEditMode = false;
       }
+    },
+    setCurrentFeedback() {
+      this.currentFeedback = this.findFeedbackOn(this.selectedDay);
+    },
+    findFeedbackOn(day) {
+      return this.feedbacks.find((feedback) => feedback.feedbackId.day === day);
     },
   },
 };
