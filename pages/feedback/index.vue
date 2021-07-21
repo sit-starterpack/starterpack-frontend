@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center flex-col">
+  <div>
     <!-- <nav class="w-full h-20 border-b-4 border-white">
       <div class="ml-5 mt-6 font-bold">feedback-starter</div>
     </nav> -->
@@ -24,5 +24,13 @@ export default {
 <style>
 nav {
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+code {
+  background-color: #f2f2f2;
+  padding: 1em;
+  margin-top: 1rem;
+  display: block;
+  white-space: pre-wrap;
 }
 </style>
