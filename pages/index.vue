@@ -1,19 +1,15 @@
 <template>
-  <div class="flex flex-col">
+  <div class="flex flex-col h-screen overflow-hidden">
     <div class="container">
-      <verify-page />
-      <!-- <feedback-page /> -->
+      <verify />
     </div>
   </div>
 </template>
 
 <script>
-import VerifyPage from '~/pages/VerifyPage.vue';
-// import FeedbackPage from '~/pages/FeedbackPage.vue';
 export default {
-  components: {
-    VerifyPage,
-    // FeedbackPage,
+  middleware({ store, redirect }) {
+    if (store.$auth.user) redirect('/feedback');
   },
 
   data() {
@@ -22,19 +18,12 @@ export default {
     };
   },
   async mounted() {
-    // this.user = this.getUser('api/user');
     this.user = await this.$axios.$get('/api/user');
   },
 };
 </script>
 
 <style>
-/* Sample `apply` at-rules with Tailwind CSS
-.container {
-@apply min-h-screen flex justify-center items-center text-center mx-auto;
-}
-*/
-
 .container {
   margin: 0 auto;
   min-height: 100vh;
