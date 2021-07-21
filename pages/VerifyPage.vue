@@ -1,7 +1,5 @@
 <template>
   <div>
-    <nuxt-link to="/admin">link</nuxt-link>
-
     <Verify />
   </div>
 </template>
