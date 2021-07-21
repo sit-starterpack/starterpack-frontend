@@ -10,8 +10,7 @@
         px-8
         rounded-full
         flex flex-row
-        lg:py-8
-        lg:px-24
+        lg:py-8 lg:px-24
       "
     >
       <form @submit.prevent="login">

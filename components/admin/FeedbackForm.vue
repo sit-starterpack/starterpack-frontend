@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import marked from 'marked';
+import snarkdown from 'snarkdown';
 export default {
   props: {
     stdId: { type: String, default: '64130500000' },
@@ -125,7 +125,7 @@ export default {
       if (this.feedback && this.userId) {
         this.isFeedbackError = false;
         const payload = {
-          comment: marked(this.feedback),
+          comment: snarkdown(this.feedback),
           day: this.selectedDay,
           commentBy: this.$auth.user.nickname,
           userId: this.userId,
@@ -158,7 +158,7 @@ export default {
       else {
         const feedbackId = this.currentFeedback.feedbackId._id;
         const payload = {
-          comment: this.feedback,
+          comment: snarkdown(this.feedback),
           day: this.selectedDay,
           commentBy: this.$auth.user.nickname,
           userId: this.userId,

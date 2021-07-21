@@ -1,13 +1,28 @@
 <template>
-  <div>
-    <div class="flex justify-center">
-      <h1>Assignment #{{ day }}</h1>
+  <div class="w-full px-6 mt-7 text-sm">
+    <div class="border-b-2 border-gray-300">
+      <div class="flex justify-center">
+        <h1>Assignment #{{ day - 1 }}</h1>
+      </div>
+      <div
+        class="
+          font-bold
+          flex
+          items-center
+          p-1
+          bg-black
+          rounded-full
+          text-white
+          w-28
+          my-3
+        "
+      >
+        <div class="rounded-full w-6 h-6 bg-white mr-3 py-2"></div>
+        <div>P' {{ writer }}</div>
+      </div>
     </div>
-    <div>
-      <span><b class="mr-2">Comment by:</b>P'{{ author }}</span>
-    </div>
-    <div>
-      <div v-html="comment"></div>
+    <div class="my-4">
+      <div class="px-2" v-html="comment"></div>
     </div>
   </div>
 </template>
@@ -18,48 +33,12 @@ export default {
     day: { type: Number, default: 0 },
     author: { type: String, default: 'ruangrit' },
   },
+  computed: {
+    writer() {
+      const split = this.author.split('');
+      split[0] = split[0].toUpperCase();
+      return split.join('');
+    },
+  },
 };
 </script>
-<style scoped>
-h1 {
-  display: block;
-  font-size: 2em;
-  margin-top: 0.67em;
-  margin-bottom: 0.67em;
-  margin-left: 0;
-  margin-right: 0;
-  font-weight: bold;
-}
-h2 {
-  display: block;
-  font-size: 1.5em;
-  margin-top: 0.83em;
-  margin-bottom: 0.83em;
-  margin-left: 0;
-  margin-right: 0;
-  font-weight: bold;
-}
-
-h3 {
-  display: block;
-  font-size: 1.17em;
-  margin-top: 1em;
-  margin-bottom: 1em;
-  margin-left: 0;
-  margin-right: 0;
-  font-weight: bold;
-}
-p {
-  display: block;
-  margin-top: 1em;
-  margin-bottom: 1em;
-  margin-left: 0;
-  margin-right: 0;
-}
-code {
-  background-color: #f2f2f2;
-  padding: 1em;
-  display: block;
-  white-space: pre-wrap;
-}
-</style>
