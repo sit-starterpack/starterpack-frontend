@@ -4,12 +4,29 @@
 
     <div
       id="input"
-      class="border-4 border-black py-5 px-8 lg:py-8 lg:px-24 rounded-full"
+      class="
+        border-4 border-black
+        py-5
+        px-8
+        rounded-full
+        flex flex-row
+        lg:py-8
+        lg:px-24
+      "
     >
-      <form @submit.prevent="login()">
+      <form @submit.prevent="login">
         <input v-model="code" type="text" class="text-2xl outline-none" />
       </form>
+      <button
+        id="button"
+        class="rounded-full absolute p-4 ml-60 -mt-3 lg:ml-72 bg-black"
+        @click="login"
+      >
+        click
+      </button>
     </div>
+    <div v-if="errors" class="text-red-500">รหัสนี้ไม่อยู่ในระบบ</div>
+
     <span class="mt-5 text-lg font-bold">
       ใส่รหัสนักศึกษา 3 ตัวท้ายเพื่อเข้าใช้งาน
     </span>
@@ -21,6 +38,7 @@ export default {
   data() {
     return {
       code: '',
+      errors: false,
     };
   },
   methods: {
@@ -29,10 +47,13 @@ export default {
         std_id: this.code,
       };
       try {
-        await this.$auth.loginWith('local', { data: payloads });
-        this.$router.push('/feedbackpage');
+        const logIn = await this.$auth.loginWith('local', { data: payloads });
+        console.log(logIn);
+        this.$router.push('/feedback');
       } catch (e) {
-        // this.router.push('/');
+        if (e) {
+          this.errors = true;
+        }
       }
     },
   },
@@ -46,14 +67,17 @@ export default {
   background: linear-gradient(90deg, #ffffff 80%, #000000 20%);
 }
 input {
-  background: linear-gradient(90deg, #ffffff 86.7%, #000000 14%);
+  background: #ffffff;
 }
-@media (min-width: 1024px) {
+button {
+  background-color: #000000;
+}
+@media (max-width: 1024px) {
   #input {
-    background: linear-gradient(90deg, #ffffff 80%, #000000 20%);
+    background: linear-gradient(90deg, #ffffff 78%, #000000 22%);
   }
   input {
-    background: linear-gradient(90deg, #ffffff 100%, #ffffff 14%);
+    background: linear-gradient(90deg, #ffffff 84.4%, #000000 16%);
   }
 }
 </style>
