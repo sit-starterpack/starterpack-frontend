@@ -13,7 +13,7 @@
         :comment="feedback.feedbackId.comment"
         :author="feedback.feedbackId.commentBy"
         :day="feedback.feedbackId.day"
-        class="w-8/12 md:px-36"
+        class="w-8/12 md:px-36 lg:w-2/3"
       ></Assignment>
     </div>
   </div>
@@ -100,5 +100,12 @@ p {
   margin-bottom: 0.8rem;
   margin-left: 0;
   margin-right: 0;
+}
+img {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full px-6 mt-7 text-sm">
+  <div class="w-full px-6 mt-7 text-sm md:text-base">
     <div class="border-b-2 border-gray-300">
       <div class="flex justify-center">
         <h1>Assignment #{{ day - 1 }}</h1>
