@@ -51,7 +51,6 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/auth',
   ],
-
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     baseURL: process.env.API_URL,

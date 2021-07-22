@@ -1,5 +1,7 @@
 <template>
-  <div class="flex flex-col justify-center w-full lg:items-center px-5">
+  <div
+    class="flex flex-col justify-center w-full lg:items-center px-10 md:px-20"
+  >
     <div class="lg:container">
       <h1 class="flex justify-center mt-5 text-2xl font-extrabold">
         Who are you?
@@ -52,7 +54,12 @@
 
 <script>
 export default {
-  middleware: ['auth', 'checkrole'],
+  middleware({ store, redirect }) {
+    const user = store.$auth.user;
+    if (user.role === 'user') {
+      redirect('/feedback');
+    } else if (!user) redirect('/');
+  },
   data() {
     return {
       totalUser: 0,

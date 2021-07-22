@@ -1,16 +1,13 @@
 <template>
-  <div>
-    <Nav></Nav>
-    <Nuxt />
+  <div class="relative min-h-screen">
+    <div class="flex flex-col">
+      <Nav class=""></Nav>
+      <Nuxt class="relative top-10vh" />
+    </div>
   </div>
 </template>
 <script>
-import Nav from '~/components/nav.vue';
-export default {
-  components: {
-    Nav,
-  },
-};
+export default {};
 </script>
 
 <style>

@@ -62,6 +62,14 @@
         >
           Edit
         </button>
+        <button
+          v-if="isEdit"
+          class="p-2 px-4 mt-3 bg-red-300"
+          :class="{ hidden: isEditMode }"
+          @click="deleteData"
+        >
+          Delete
+        </button>
         <div v-if="isEditMode" class="flex w-full justify-end">
           <button class="p-2 px-4 mt-3 bg-green-400" @click="updateFeedback">
             Update
@@ -79,7 +87,7 @@
 </template>
 
 <script>
-import marked from 'marked';
+import snarkdown from 'snarkdown';
 export default {
   props: {
     stdId: { type: String, default: '64130500000' },
@@ -121,11 +129,22 @@ export default {
     if (this.currentFeedback) this.isEdit = true;
   },
   methods: {
+    deleteData() {
+      const isConfirm = window.confirm('Do you want to delete?');
+      if (isConfirm) {
+        this.$emit('deletefeedback', {
+          userId: this.userId,
+          feedbackId: this.currentFeedback.feedbackId._id,
+        });
+        this.isEdit = false;
+        this.feedback = '';
+      }
+    },
     sendFeedback() {
       if (this.feedback && this.userId) {
         this.isFeedbackError = false;
         const payload = {
-          comment: marked(this.feedback),
+          comment: snarkdown(this.feedback),
           day: this.selectedDay,
           commentBy: this.$auth.user.nickname,
           userId: this.userId,
@@ -158,7 +177,7 @@ export default {
       else {
         const feedbackId = this.currentFeedback.feedbackId._id;
         const payload = {
-          comment: this.feedback,
+          comment: snarkdown(this.feedback),
           day: this.selectedDay,
           commentBy: this.$auth.user.nickname,
           userId: this.userId,

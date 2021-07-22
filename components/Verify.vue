@@ -11,8 +11,7 @@
         px-8
         rounded-full
         flex flex-row
-        lg:py-8
-        lg:px-24
+        lg:py-8 lg:px-24
       "
     >
       <form @submit.prevent="login">
@@ -66,8 +65,7 @@ export default {
         std_id: this.code,
       };
       try {
-        const logIn = await this.$auth.loginWith('local', { data: payloads });
-        console.log(logIn);
+        await this.$auth.loginWith('local', { data: payloads });
         this.$router.push('/feedback');
       } catch (e) {
         if (e) {
@@ -78,12 +76,9 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 #Container {
   overflow-x: visible;
-}
-#input {
-  /* background: linear-gradient(90deg, #ffffff 80%, #000000 20%); */
 }
 input {
   background: #ffffff;
@@ -91,14 +86,6 @@ input {
 button {
   background-color: #000000;
 }
-/* @media (max-width: 1024px) {
-  #input {
-    background: linear-gradient(90deg, #ffffff 78%, #000000 22%);
-  }
-  input {
-    background: linear-gradient(90deg, #ffffff 84.4%, #000000 16%);
-  }
-} */
 svg {
   fill: #ffffff;
   animation-duration: 2s;
