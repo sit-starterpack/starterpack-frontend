@@ -49,14 +49,17 @@ commands:
           command: yarn add firebase-tools
       - run:
           name: Build for current environment.
-          command: yarn build ; yarn generate
+          command: yarn build ; yarn generate 
           build:
+      - run:
+          name: check that firebase.json
+          command: cat firebase.json
   deploy:
     description: "Deploy project to the designated environment"
     parameters:
       env:
         type: string
-        default: "dev"
+        default: "production"
     steps:
       - checkout
       - run:

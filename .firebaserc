@@ -9,7 +9,7 @@
           "startpack-feedback-dev"
         ],
         "production": [
-          "startpack-feedback"
+          "starterpack-feedback"
         ]
       }
     }
