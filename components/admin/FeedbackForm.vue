@@ -62,6 +62,14 @@
         >
           Edit
         </button>
+        <button
+          v-if="isEdit"
+          class="p-2 px-4 mt-3 bg-red-300"
+          :class="{ hidden: isEditMode }"
+          @click="deleteData"
+        >
+          Delete
+        </button>
         <div v-if="isEditMode" class="flex w-full justify-end">
           <button class="p-2 px-4 mt-3 bg-green-400" @click="updateFeedback">
             Update
@@ -121,6 +129,17 @@ export default {
     if (this.currentFeedback) this.isEdit = true;
   },
   methods: {
+    deleteData() {
+      const isConfirm = window.confirm('Do you want to delete?');
+      if (isConfirm) {
+        this.$emit('deletefeedback', {
+          userId: this.userId,
+          feedbackId: this.currentFeedback.feedbackId._id,
+        });
+        this.isEdit = false;
+        this.feedback = '';
+      }
+    },
     sendFeedback() {
       if (this.feedback && this.userId) {
         this.isFeedbackError = false;

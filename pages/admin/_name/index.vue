@@ -15,6 +15,7 @@
           :user-id="user._id"
           @sendfeedback="postFeedbackToServer"
           @updatefeedback="putFeedbackToServer"
+          @deletefeedback="deleteFeedbackToServer"
         ></AdminFeedbackForm>
       </div>
     </div>
@@ -72,6 +73,15 @@ export default {
         if (res.status >= 200) {
           this.fetchData();
         }
+      }
+    },
+    async deleteFeedbackToServer({ feedbackId, userId }) {
+      const res = await this.callApi(
+        'delete',
+        `/api/user/${userId}/feedback/${feedbackId}`
+      );
+      if (res.status >= 200) {
+        this.fetchData();
       }
     },
   },

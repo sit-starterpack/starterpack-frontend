@@ -65,8 +65,7 @@ export default {
         std_id: this.code,
       };
       try {
-        const logIn = await this.$auth.loginWith('local', { data: payloads });
-        console.log(logIn);
+        await this.$auth.loginWith('local', { data: payloads });
         this.$router.push('/feedback');
       } catch (e) {
         if (e) {
