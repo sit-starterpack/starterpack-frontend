@@ -76,12 +76,9 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 #Container {
   overflow-x: visible;
-}
-#input {
-  /* background: linear-gradient(90deg, #ffffff 80%, #000000 20%); */
 }
 input {
   background: #ffffff;
@@ -89,14 +86,6 @@ input {
 button {
   background-color: #000000;
 }
-/* @media (max-width: 1024px) {
-  #input {
-    background: linear-gradient(90deg, #ffffff 78%, #000000 22%);
-  }
-  input {
-    background: linear-gradient(90deg, #ffffff 84.4%, #000000 16%);
-  }
-} */
 svg {
   fill: #ffffff;
   animation-duration: 2s;

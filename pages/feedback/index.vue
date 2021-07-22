@@ -1,8 +1,17 @@
 <template>
-  <!-- <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script> -->
-
   <div class="flex flex-col">
-    <div v-if="!isHave">NO DATA</div>
+    <div v-if="!isHave" class="flex justify-center">
+      <div class="w-2/3 lg:w-2/3 mt-12 md:mt-32 text-center">
+        <span class="font-bold md:text-2xl xl:text-xl">
+          ตอนนี้น้องยังไม่มี Feedback นะค้าบ รอก่อนน้า</span
+        >
+        <img
+          class="mt-10 md:w-1/2 xl:w-1/3"
+          src="~/assets/sorry.png"
+          alt="sorry"
+        />
+      </div>
+    </div>
     <div
       v-for="feedback in feedbacks"
       v-else
@@ -17,7 +26,6 @@
       ></Assignment>
     </div>
   </div>
-  <!-- {{ user }} -->
 </template>
 <script>
 export default {
@@ -45,10 +53,8 @@ export default {
           this.isHave = true;
         }
       }
-      // this.feedbacks = res.data.feedbacks[0].feedbackId.feedbacks;
     }
   },
-  methods: {},
 };
 </script>
 
