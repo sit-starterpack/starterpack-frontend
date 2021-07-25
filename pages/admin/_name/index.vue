@@ -24,6 +24,12 @@
 
 <script>
 export default {
+  middleware({ store, redirect }) {
+    const user = store.$auth.user;
+    if (user.role === 'user') {
+      redirect('/feedback');
+    } else if (!user) redirect('/');
+  },
   data() {
     return {
       start: this.$route.query.start,
@@ -58,7 +64,9 @@ export default {
       if (res) {
         if (res.status >= 200) {
           const limitUser = res.data.docs;
-          this.userInResponsibilty = limitUser;
+          this.userInResponsibilty = limitUser.sort(
+            (a, b) => Number(a.std_id) - Number(b.std_id)
+          );
         }
       }
     },

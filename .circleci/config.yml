@@ -13,7 +13,7 @@ commands:
       - checkout
       - run:
           name: "What a number in this .env"
-          command: touch .env ; echo "API_URL_PROD=$API_URL" >> .env
+          command: touch .env ; echo "API_URL=$API_URL_PROD" >> .env
       - run:
           name: "Check file .env"
           command: ls -la ; cat .env
@@ -23,7 +23,7 @@ commands:
       - checkout
       - run:
           name: "What a number in this .env"
-          command: touch .env ; echo "API_URL_DEV=$API_URL" >> .env ;
+          command: touch .env ; echo "API_URL=$API_URL_DEV" >> .env ;
       - run:
           name: "Check file .env"
           command: cat .env

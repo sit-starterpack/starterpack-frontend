@@ -20,11 +20,16 @@ export default {
         content: 'Starter Pack, SIT, KMUTT',
       },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Roboto&display=swap',
+      },
+    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: ['~/plugins/api'],
@@ -71,9 +76,9 @@ export default {
     redirect: {
       login: '/',
       logout: '/',
-      home: '/feedback',
     },
   },
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
 };
